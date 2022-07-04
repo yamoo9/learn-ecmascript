@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "learn-ecmascript",
+  "version": "1.0.0",
+  "description": "ECMAScript 러닝",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "server": "nodemon server/index.js",
+    "client": "live-server client --port=3000 --host=localhost --no-browser --cors --spa"
+  },
+  "keywords": [
+    "ecmascript",
+    "javascript"
+  ],
+  "author": "yamoo9 <yamoo9@euid.dev>",
+  "devDependencies": {
+    "live-server": "1.2.2",
+    "nodemon": "2.0.18"
+  }
+}

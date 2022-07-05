@@ -7,7 +7,9 @@
   "scripts": {
     "start": "node server/index.js",
     "server": "nodemon server/index.js",
-    "client": "live-server client --port=3000 --host=localhost --no-browser --cors --spa"
+    "client": "live-server client --port=3000 --host=localhost --no-browser --cors --spa",
+    "lint": "eslint client/**/*.js --ignore-path .gitignore",
+    "format": "prettier --write client/**/*.js --ignore-path .gitignore"
   },
   "keywords": [
     "ecmascript",
@@ -15,7 +17,10 @@
   ],
   "author": "yamoo9 <yamoo9@euid.dev>",
   "devDependencies": {
+    "eslint": "8.19.0",
+    "eslint-config-prettier": "8.5.0",
     "live-server": "1.2.2",
-    "nodemon": "2.0.18"
+    "nodemon": "2.0.18",
+    "prettier": "2.7.1"
   }
 }

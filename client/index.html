@@ -5,11 +5,48 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>러닝! ECMAScript</title>
-  <script src="./index.js"></script>
+  <style>
+    :root {
+      font-size: 13px;
+    }
+    h1[lang=en] {
+      font-size: 3rem;
+      color:#64420f;
+    }
+  </style>
+  <script src="./chapter/04-data-types.js"></script>
 </head>
 <body>
+
+  <button type="button" aria-label="글자 크기 증가">+</button>
   
-  <h1 lang="en">Learning ECMAScript</h1>
+  <h1 lang="en">
+    <!-- ECMAScript는 JavaScript 입니다. -->
+    Learning ECMAScript
+  </h1>  
+
+  <script>
+    const headline = document.querySelector('h1[lang="en"]');
+    const incrementButton = document.querySelector('button[aria-label="글자 크기 증가"]');
+    const INCREMENT_VALUE = 10;
+
+    incrementButton.onclick = function() {
+      // 제목의 글자 크기를 가져온다.
+      let fontSize = getComputedStyle(headline).fontSize;
+      fontSize = parseFloat(fontSize, 10);
+      // 현재 글자 크기에 특정 숫자를 더한다.
+      fontSize = fontSize + INCREMENT_VALUE
+      // 더한 값에 단위를 붙여서 제목의 스타일로 설정한다.
+      headline.style.fontSize = fontSize + 'px';
+    }
+  </script>
+
+
+
+  <div>
+    <label for="age">나이</label>
+    <input type="number" id="age" placeholder="12" />
+  </div>
 
 </body>
 </html>

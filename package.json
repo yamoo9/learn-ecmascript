@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server/index.js",
     "server": "nodemon server/index.js",
-    "client": "live-server client --port=3000 --host=localhost --no-browser --cors --spa",
+    "client": "live-server client --port=3000 --host=localhost --no-browser --cors",
     "lint": "eslint client/**/*.js --ignore-path .gitignore",
     "format": "prettier --write client/**/*.js --ignore-path .gitignore"
   },

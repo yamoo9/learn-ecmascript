@@ -1,52 +1,102 @@
 <!DOCTYPE html>
 <html lang="ko-KR">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>러닝! ECMAScript</title>
-  <style>
-    :root {
-      font-size: 13px;
-    }
-    h1[lang=en] {
-      font-size: 3rem;
-      color:#64420f;
-    }
-  </style>
-  <script src="./chapter/04-data-types.js"></script>
-</head>
-<body>
 
-  <button type="button" aria-label="글자 크기 증가">+</button>
-  
-  <h1 lang="en">
-    <!-- ECMAScript는 JavaScript 입니다. -->
-    Learning ECMAScript
-  </h1>  
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>러닝! ECMAScript</title>
+    <style>
+      :root {
+        margin: 3rem;
+        font-size: 13px;
+      }
 
-  <script>
-    const headline = document.querySelector('h1[lang="en"]');
-    const incrementButton = document.querySelector('button[aria-label="글자 크기 증가"]');
-    const INCREMENT_VALUE = 10;
+      h1[lang=en] {
+        font-size: 3rem;
+        color: #64420f;
+      }
 
-    incrementButton.onclick = function() {
-      // 제목의 글자 크기를 가져온다.
-      let fontSize = getComputedStyle(headline).fontSize;
-      fontSize = parseFloat(fontSize, 10);
-      // 현재 글자 크기에 특정 숫자를 더한다.
-      fontSize = fontSize + INCREMENT_VALUE
-      // 더한 값에 단위를 붙여서 제목의 스타일로 설정한다.
-      headline.style.fontSize = fontSize + 'px';
-    }
-  </script>
+      form {
+        margin: 24px 0;
+      }
 
+      .formControl,
+      output {
+        margin-bottom: 8px;
+      }
+    </style>
+    <script src="./chapter/06-operators.js" defer></script>
+  </head>
 
+  <body>
 
-  <div>
-    <label for="age">나이</label>
-    <input type="number" id="age" placeholder="12" />
-  </div>
+    <button type="button" aria-label="글자 크기 증가">+</button>
 
-</body>
+    <h1 lang="en">
+      <!-- ECMAScript는 JavaScript 입니다. -->
+      Learning ECMAScript
+    </h1>
+
+    <form id="demoForm">
+      <div class="formControl">
+        <label for="firstNumber">first number</label>
+        <input type="number" id="firstNumber" value="20" />
+      </div>
+      <div class="formControl">
+        <label for="secondNumber">second number</label>
+        <input type="number" id="secondNumber" value="100" />
+      </div>
+      <output id="calcResult">
+        <span id="firstValue">firstNumber</span> +
+        <span id="secondValue">secondNumber</span> =
+        <span id="resultValue">calcuratedValue</span>
+      </output>
+    </form>
+
+    <script>
+      const firstNumberNode = demoForm.querySelector('#firstNumber');
+      const secondNumberNode = demoForm.querySelector('#secondNumber');
+      const firstValueNode = demoForm.querySelector('#firstValue');
+      const secondValueNode = demoForm.querySelector('#secondValue');
+      const resultValueNode = demoForm.querySelector('#resultValue');
+
+      firstValueNode.textContent = firstNumberNode.value;
+      secondValueNode.textContent = secondNumberNode.value;
+      resultValueNode.textContent = +firstNumberNode.value + +secondNumberNode.value;
+
+      firstNumberNode.addEventListener('input', e => {
+        firstValueNode.textContent = e.target.value;
+        resultValueNode.textContent = +firstNumberNode.value + +secondNumberNode.value;
+      });
+
+      secondNumberNode.addEventListener('input', e => {
+        secondValueNode.textContent = e.target.value;
+        resultValueNode.textContent = +firstNumberNode.value + +secondNumberNode.value;
+      });
+    </script>
+
+    <script>
+      const headline = document.querySelector('h1[lang="en"]');
+      const incrementButton = document.querySelector('button[aria-label="글자 크기 증가"]');
+      const INCREMENT_VALUE = 10;
+
+      incrementButton.onclick = function () {
+        // 제목의 글자 크기를 가져온다.
+        let fontSize = getComputedStyle(headline).fontSize;
+        fontSize = parseFloat(fontSize, 10);
+        // 현재 글자 크기에 특정 숫자를 더한다.
+        fontSize = fontSize + INCREMENT_VALUE
+        // 더한 값에 단위를 붙여서 제목의 스타일로 설정한다.
+        headline.style.fontSize = fontSize + 'px';
+      }
+    </script>
+
+    <div>
+      <label for="age">나이</label>
+      <input type="number" id="age" placeholder="12" />
+    </div>
+
+  </body>
+
 </html>

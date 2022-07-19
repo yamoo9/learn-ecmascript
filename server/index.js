@@ -1,6 +1,6 @@
 // Node.js 런타임 환경
 
-// console.log(process.env.LANG);
+// console.log(globalThis); // ES 2020 global
 
 const liveServer = require('live-server');
 

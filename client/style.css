@@ -1,0 +1,18 @@
+:root {
+  margin: 3rem;
+  font-size: 13px;
+}
+
+h1[lang=en] {
+  font-size: 3rem;
+  color: #64420f;
+}
+
+form {
+  margin: 24px 0;
+}
+
+.formControl,
+output {
+  margin-bottom: 8px;
+}

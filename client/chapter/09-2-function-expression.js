@@ -83,14 +83,14 @@ let namedFunctionExpression = function myNameIsFunction() {
 // 콜백(callback) 함수 (표현)식
 let callbackFunctionExpression;
 let clickCount = 0;
-console.log(clickCount);
+// console.log(clickCount);
 
-document.onclick = function () {
-  console.log('clicked document');
-  if (clickCount++ > 10) return;
-  console.log(clickCount);
-  document.onclick();
-};
+// document.onclick = function () {
+//   console.log('clicked document');
+//   if (clickCount++ > 10) return;
+//   console.log(clickCount);
+//   document.onclick();
+// };
 
 // 함수 선언문 vs. 함수 (표현)식
 // - 식 안에서 선언은 사용할 수 없음. 반면 함수 식은 식 내부에서도 사용 가능
@@ -118,8 +118,8 @@ const MASTER = (function() {
   };
 })();
 
-console.log(MASTER);
-console.log(MASTER.getKey());
+// console.log(MASTER);
+// console.log(MASTER.getKey());
 // console.log(masterGender);
 
 

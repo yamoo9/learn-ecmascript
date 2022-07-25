@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="./style.css" />
     <script src="./chapter/09-1-function-declare.js" defer></script>
 
-    <script src="./utils/getStyle.js" defer></script>
-    <script src="./utils/setStyle.js" defer></script>
-    <script src="./utils/setStyle.test.js" defer></script>
+    <script src="./utils/getStyle.js"></script>
+    <script src="./utils/setStyle.js"></script>
+    <script src="./utils/css.js"></script>
   </head>
   
   <body>
@@ -21,6 +21,16 @@
       <span class="word">ECMAScript</span>
     </h1>
     
+    <script>
+      css('h1[lang=en] .word', 'color', '#900');
+      css('h1[lang=en] .word:last-of-type', 'font-size', 14);
+
+      console.table({
+        'first Word: color': css('h1[lang=en] .word', 'color'),
+        'last Word: font Size': css('h1[lang=en] .word:last-of-type', 'font-size'),
+      });
+    </script>
+
   </body>
 
 </html>

@@ -61,7 +61,7 @@ console.assert(rem('102.234px', 10) === '10.2234rem');
 
 
 // SET : setNodeStyleFromCssRules(node, cssRules)
-// FACTORY: css(node[, styleProp, value | cssRules])
+
 
 function css() {
   return null;

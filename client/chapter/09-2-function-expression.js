@@ -47,9 +47,12 @@ const calculateTotal = function () {
   // });
 
   // - reduce
-  return Array.from(arguments).reduce(function (total, current) {
+
+  const callbackReduce = function (total, current) {
     return total + current;
-  }, 0);
+  };
+
+  return Array.from(arguments).reduce(callbackReduce, 0);
 
   // 힌트 2: arguments는 이터러블(iterable)로서 Symbol.iterator 메서드를 가진다.
   // for (let arg of arguments) total += arg;
@@ -61,21 +64,62 @@ resultX = calculateTotal(10000);
 resultY = calculateTotal(21500, 9800, 4700);
 resultZ = calculateTotal(9000, -2500, 5000, 11900);
 
-console.log(resultX);
-console.log(resultY);
-console.log(resultZ);
+// console.log(resultX);
+// console.log(resultY);
+// console.log(resultZ);
 
-// 익명(이름이 없는) 함수 (표현)식
-let anonymousFunctionExpression;
+// 익명 또는 무명(이름이 없는) 함수 (표현)식
+const anonymousFunctionExpression = function () {};
 
 // 유명(이름을 가진) 함수 (표현)식
-let namedFunctionExpression;
+let namedFunctionExpression = function myNameIsFunction() {
+  // console.log(typeof myNameIsFunction); // 'function'
+};
 
-// 콜백 함수 (표현)식
+// console.log(typeof myNameIsFunction); // undefined
+
+// namedFunctionExpression();
+
+// 콜백(callback) 함수 (표현)식
 let callbackFunctionExpression;
+let clickCount = 0;
+console.log(clickCount);
+
+document.onclick = function () {
+  console.log('clicked document');
+  if (clickCount++ > 10) return;
+  console.log(clickCount);
+  document.onclick();
+};
 
 // 함수 선언문 vs. 함수 (표현)식
+// - 식 안에서 선언은 사용할 수 없음. 반면 함수 식은 식 내부에서도 사용 가능
+// - 함수 선언은 반드시 이름이 필요하다. 반면, 함수 식은 이름이 없을 수도 있다.
+// - 스코프 호이스트(scope hoist) 시, 처리되는 방식의 차이 (선언은 몸체가 실행영역으로 끌어올려짐 / 식은 할당되는 값은 그대로, 이름만 끌어올려지는 현상을 보임)
 
 // 즉시 실행 함수 (표현)식
 // Immediately Invoked Function Expression
-let IIFE;
+// 함수가 선언 됨과 동시에 실행되는 것을 말한다.
+// JavaScript 함수는 그 자체로 '값'
+// 함수 값을 즉시 실행 (이름 호출 없이)
+
+// 모듈 패턴
+const MASTER = (function() {
+  const UNIQUE_KEY = 'kdsjficvks13ddkfjsjcidjwkfer';
+  // 즉시 실행 함수 식의 용도는?
+  // 모듈로서 활용
+  // 정보 은닉(캡슐화): 외부의 접근 차단(보호)
+  // 일부 정보 노출
+  // 노출 패턴
+  return {
+    getKey: function() {
+      return `KEY=${UNIQUE_KEY}`;
+    }
+  };
+})();
+
+console.log(MASTER);
+console.log(MASTER.getKey());
+// console.log(masterGender);
+
+

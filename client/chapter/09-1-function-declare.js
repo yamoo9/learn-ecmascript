@@ -8,9 +8,26 @@
 // console.log('총 합 = ', 560 + 5000 + 27100 + 10200);
 // console.log('총 합 = ', 9000 - 2500 + 5000 + 11900);
 
+function getOneOrZero() {
+  return Math.random() * 1 > 0.5 ? 1 : 0;
+}
+
 // 함수 선언
 // 매개 변수 (parameter)
-function calcuratePrice(priceA, priceB, priceC, priceD) {
+function calcuratePrice(
+  priceA,
+  priceB,
+  priceC = getOneOrZero(),
+  priceD = getOneOrZero()
+) {
+  if (!priceA || !priceB) {
+    throw new TypeError(
+      'priceA 또는 priceB 매개변수는 필수로 전달될 숫자 값이 필요합니다.'
+    );
+  }
+
+  console.log(priceC, priceD);
+
   // 함수 값 반환
   return priceA + priceB + priceC + priceD;
 }
@@ -26,10 +43,14 @@ total = calcuratePrice(3800, 15200, -500, 80200);
 // console.log(`총 합 = ${total}`);
 total = calcuratePrice(560, 5000, 27100, 10200);
 // console.log(`총 합 = ${total}`);
-total = calcuratePrice(9000, -2500, 5000, 11900);
+total = calcuratePrice(9000, -2500);
+
+console.log(total);
 // console.log(`총 합 = ${total}`);
 
 // 외부(전역 포함), 지역 변수
+// 함수 내부는 외부와 분리되는 지역이 형성 됨
+// 함수의 매개변수는 지역 변수일까요? 외부의 변수일까요?
 
 // 매개 변수 기본 값
 
@@ -50,24 +71,3 @@ console.assert(rem(48) === '3rem');
 console.assert(rem(48, 10) === '4.8rem');
 console.assert(rem('102px', 10) === '10.2rem');
 console.assert(rem('102.234px', 10) === '10.2234rem');
-
-// 구현해야 할 로직(logic)
-// GET : css(node, styleProp)
-// SET : css(node, styleProp, value)
-// SET : css(node, cssRules)
-
-// 초심자: 함수 하나의 몸체 안에서 여러 로직을 처리하려 한다.
-// 중급자: 함수의 로직을 분리해서 재사용할 수 있도록 구성한다.
-
-
-// SET : setNodeStyleFromCssRules(node, cssRules)
-
-
-function css() {
-  return null;
-}
-
-//
-
-// console.assert(css(document.body, 'font-size')) // '16px'
-// console.assert(css(document.body, 'font-size', 32)) // undefined, <body style="font-size: 32px"></body>

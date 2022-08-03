@@ -3,6 +3,22 @@
 //   type: string,
 //   handler: function
 // );
+const EUID = Object.freeze({
+  on(selectorOrElement, eventType, eventListener) {
+    let node = null;
+    if (typeof selectorOrElement === 'string') {
+      node = document.querySelector(selectorOrElement);
+    }
+    if (node?.nodeType !== document.ELEMENT_NODE) {
+      throw new TypeError('....');
+    }
+    node.addEventListener(eventType, eventListener);
+    
+    return () => {
+      node.removeEventListener(eventType, eventListener);
+    }
+  }
+});
 
 // off(
 //   node: SelectorString|HTMLElementNode, 

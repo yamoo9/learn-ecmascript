@@ -7,26 +7,64 @@
 // 프로그래밍 정의: 
 // - "문제 해결을 위해 함수 자신을 다시 호출"
 // - "어떤 프로시저(절차)가 자기 자신을 반복적 호출하여 문제를 풀어 나가는 알고리즘"
+//    - 반복적 처리
+//    - 재귀 처리 (메모리 사용, 읽기 용이)
 
 // -----------------------------------------------------------------------
 
 // pow 함수를 재귀 호출 방식으로 변경
-// - 재귀 기반(base)
-// - 재귀 단계(step)
-// - 재귀 깊이(depth)
+// - 재귀 기반(base) : 재귀를 언제 멈출 것인가?
+// - 재귀 단계(step) : 재귀 시, 반복적으로 처리할 일 (공통적인 처리)
+// - 재귀 깊이(depth) : 재귀를 최대 몇 번 수행할 것인가?
+function pow(numeric, powerCount) {
+  let result = 1;
+  for (let i=0, l=powerCount; i<l; ++i) result *= numeric;
+  return result;
+}
 
+
+// 3 ** 4 = 3 * 3 * 3 * 3
+//    ↓
+// 3 ** 4 = 3 * pow(3, 4 - 1)
+//    ↓
+// n ** k = n * pow(n, k - 1)
+
+function recursivePow(n, k) {
+  // 재귀 기반(base)
+  if (k < 2) {
+    return n;
+  } else {
+    return n * recursivePow(n, k - 1)
+  }
+  // return (k < 2) ? n : n * recursivePow(n, k - 1);
+}
+
+// let result = recursivePow(17, 3);
+// console.log(result);
 
 // factorial 함수를 재귀 호출 방식으로 작성
 // 참고: https://bit.ly/factorial-util
 // - 팩토리얼 = 그 수보다 작거나 같은 모든 양의 정수의 곱
 // - 기호(!)를 사용하여 n!으로 표기
 // - 예시) 4! = 4 * 3 * 2 * 1
+function factorial(n) {
+  return n === 1 ? n : n * factorial(n - 1);
+}
+
+// let result = factorial(5);
+// console.log(result);
 
 
 // fibonacci 함수를 재귀 호출 방식으로 작성
 // 참고: https://bit.ly/fibonacci-util
 // - 피보나치 수 = 처음과 두번째 항은 1이고, 그 뒤 모든 항은 바로 앞 두 항을 더한 합인 수열
 // 예시) 1, 1, 2, 3, 5, 8, ...
+
+function fibonacci(n) {
+  if (n <= 0) return 0;
+  if (n <= 2) return 1;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
 
 
 // -----------------------------------------------------------------------
@@ -106,3 +144,23 @@ const SocialPartiners = {
 // 메모이제이션을 사용한 fibonacci 함수를 작성해보세요.
 // 참고: https://bit.ly/memoiz
 // - 동일 계산 반복 시, 이전 계산 값을 메모리에 저장하여 실행 속도를 높이는 방법
+
+
+function memoFibo(n) {
+  // memoized - 어딘가(함수 밖의 어딘가...)에 기억한다.
+  if (n <= 0) return 0;
+  if (n <= 2) return 1;
+  // 캐시한 것이 있는가?
+  if (memoFibo.cache[n]) {
+    // 있다면 그 값을 반환하라.
+    return memoFibo.cache[n];
+  } else {
+    // 없다면 캐시에 그 값을 기억한 후, 값을 반환하라.
+    return memoFibo.cache[n] = fibonacci(n - 1) + fibonacci(n - 2);
+  }
+}
+
+// 메모리 캐시 객체
+memoFibo.cache = {
+  // [n]: value
+};

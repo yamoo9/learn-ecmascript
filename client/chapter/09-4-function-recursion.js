@@ -140,6 +140,24 @@ const SocialPartiners = {
   },
 };
 
+function calcCompanySalaries(team) {
+  if (Array.isArray(team)) {
+    return team.reduce((total, {salary}) => total + salary, 0)
+  } else {
+    if (team && typeof team === 'object') {
+      let total = 0;
+      for (let subTeam of Object.values(team)) {
+        total += calcCompanySalaries(subTeam);
+      }
+      return total;
+    } else {
+      return 0;
+    }
+  }
+}
+
+let result = calcCompanySalaries(SocialPartiners);
+console.log(result);
 
 // 메모이제이션을 사용한 fibonacci 함수를 작성해보세요.
 // 참고: https://bit.ly/memoiz

@@ -20,14 +20,6 @@ function testRepeat(callback, count = 10) {
   while (count--) callback?.();
 }
 
-testRepeat(() => {
-  let testNumber = 10;
-  let result = getRandom(testNumber);
-  let condition = result >= 0 || result <= testNumber;
-  if (!condition) throw new Error('테스트 실패');
-  console.log('테스트 성공');
-}, 0);
-
 // [인터페이스] getRandomMinMax(min:number = 0, max:number = 100): number
 // [테스트] getRandomMinMax(40) 40~100 사이 난수 반환
 // [테스트] getRandomMinMax(32, 54) 32~54 사이 난수 반환
@@ -44,11 +36,3 @@ function getRandomMinMax(min = 0, max = 100) {
   // 난수(10 - 4) + 4
   return getRandom(max - min) + min;
 }
-
-testRepeat(() => {
-  let min = 40;
-  let result = getRandomMinMax(min);
-  let condition = result >= min || result <= 100;
-  if (!condition) throw new Error('테스트 실패');
-  console.log('테스트 성공');
-}, 2000);

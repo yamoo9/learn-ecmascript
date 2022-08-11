@@ -22,15 +22,14 @@ const animate = (() => {
 })();
 
 const FPS = 8;
-let isRolling = false;
 
-function handleRollingDice() {
-  if (!isRolling) {
-    handleRollingDice.stopAnimate = animate(rollingDice, FPS);
-  } else {
-    handleRollingDice.stopAnimate?.();
-  }
-  isRolling = !isRolling;
-}
-
-handleRollingDice.stopAnimate = null;
+const handleRollingDice = (() => {
+  let isRolling = false;
+  let stopAnimate = null;
+  return () => {
+    !isRolling
+      ? (handleRollingDice.stopAnimate = animate(rollingDice, FPS))
+      : handleRollingDice.stopAnimate?.();
+    isRolling = !isRolling;
+  };
+})();

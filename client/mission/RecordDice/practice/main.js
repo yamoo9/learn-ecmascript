@@ -1,4 +1,4 @@
-/* global getRandomMinMax */
+/* global getRandomMinMax, animate */
 
 // 재사용 가능한 함수
 // - getRandom(n:number): number
@@ -14,16 +14,6 @@ const diceElement = document.querySelector('.dice');
 function drawDice(diceNumber) {
   diceElement.value = diceNumber;
 }
-
-// const stopAnimate = animate(callback, FPS)
-const animate = (() => {
-  let clearId = 0;
-  return function recursion(callback, FPS = 60) {
-    callback?.();
-    clearId = setTimeout(recursion.bind(null, callback, FPS), 1000 / FPS);
-    return () => clearTimeout(clearId);
-  };
-})();
 
 const FPS = 8;
 

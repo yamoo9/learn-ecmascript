@@ -39,9 +39,9 @@ const cssMap = {
 // - 로그인 여부
 // - 유료 사용자 권한
 
-// auth
-// - `auth`entication
-// - `auth`orization
+// auth*
+// - authentification
+// - authorization
 
 // 로그인 전
 let authUser = null;
@@ -172,7 +172,7 @@ console.log(superMan.name);
 
 console.log(superMan.costume);
 superMan.costume =
-  '강철 바디, 하늘을 날으는 강력한 엔진, 손바닥에서는 광선빔이~ ';
+  '강철 바디, 하늘을 날으는 강력한 엔진, 손바닥에서는 광선 빔이~ ';
 console.log(superMan.costume);
 
 // 프로퍼티 이름 제한

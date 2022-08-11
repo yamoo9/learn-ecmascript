@@ -13,13 +13,6 @@ function getRandom(n) {
   return Math.round(Math.random() * n);
 }
 
-function testRepeat(callback, count = 10) {
-  // 로직
-  // count 만큼 callback 함수를 실행한다.
-  // optional chaining
-  while (count--) callback?.();
-}
-
 // [인터페이스] getRandomMinMax(min:number = 0, max:number = 100): number
 // [테스트] getRandomMinMax(40) 40~100 사이 난수 반환
 // [테스트] getRandomMinMax(32, 54) 32~54 사이 난수 반환

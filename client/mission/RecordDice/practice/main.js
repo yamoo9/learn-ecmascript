@@ -22,11 +22,9 @@ const handleRollingDice = (() => {
   let stopAnimate = null;
   return () => {
     if (isRolling) {
-      handleRollingDice.stopAnimate = animate(() => {
-        drawDice?.(rollingDice?.());
-      }, FPS);
+      stopAnimate = animate(() => drawDice?.(rollingDice?.()), FPS);
     } else {
-      handleRollingDice.stopAnimate?.();
+      stopAnimate?.();
     }
     isRolling = !isRolling;
   };

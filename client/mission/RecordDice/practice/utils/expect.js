@@ -11,9 +11,33 @@ function expect(received) {
         );
       }
     },
-    toBeGreaterThen() {},
-    toBeGreaterThenAndEqual() {},
-    toBeLessThen() {},
-    toBeLessThenAndEqual() {},
+    toBeGreaterThen(expected) {
+      if (received <= expected) {
+        throw new Error(
+          `전달값(received) ${received}이 기댓값(expected) ${expected} 보다 작거나 같습니다.`
+        );
+      }
+    },
+    toBeGreaterThenAndEqual(expected) {
+      if (received < expected) {
+        throw new Error(
+          `전달값(received) ${received}이 기댓값(expected) ${expected} 보다 작습니다.`
+        );
+      }
+    },
+    toBeLessThen(expected) {
+      if (received >= expected) {
+        throw new Error(
+          `전달값(received) ${received}이 기댓값(expected) ${expected} 보다 크거나 같습니다.`
+        );
+      }
+    },
+    toBeLessThenAndEqual(expected) {
+      if (received > expected) {
+        throw new Error(
+          `전달값(received) ${received}이 기댓값(expected) ${expected} 보다 큽니다.`
+        );
+      }
+    },
   };
 }

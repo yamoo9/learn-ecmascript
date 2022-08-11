@@ -6,7 +6,9 @@
 
 // 주사위를 굴려서 랜덤 수(1~6)를 반환하는 함수
 function rollingDice() {
-  return getRandomMinMax(1, 6);
+  let diceNumber = getRandomMinMax(1, 6);
+  console.log(`diceNumber = ${diceNumber}`);
+  return diceNumber;
 }
 
 // const stopAnimate = animate(callback, FPS)
@@ -19,4 +21,16 @@ const animate = (() => {
   };
 })();
 
-// stopAnimate()
+const FPS = 8;
+let isRolling = false;
+
+function handleRollingDice() {
+  if (!isRolling) {
+    handleRollingDice.stopAnimate = animate(rollingDice, FPS);
+  } else {
+    handleRollingDice.stopAnimate?.();
+  }
+  isRolling = !isRolling;
+}
+
+handleRollingDice.stopAnimate = null;

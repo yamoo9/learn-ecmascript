@@ -4,9 +4,10 @@
 
 ## 재사용 가능한 함수 만들기
 
-- animate
-- bindEvent
-- controlElement
-- getRandom
-- memo
-- testRepeat
+- [x] testRepeat
+- [x] getRandom
+- [x] animate
+- [x] expect
+- [x] bindEvent
+- [x] controlElement
+- [ ] memo

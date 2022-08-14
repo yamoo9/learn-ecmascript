@@ -1,31 +1,59 @@
-/* global getRandomMinMax, animate */
+/* global bindEvent, getRandomMinMax, animate, DiceSound */
 
-// 재사용 가능한 함수
-// - getRandom(n:number): number
-// - getRandomMinMax(min:number, max:number): number
+(() => {
+  /* Configuration ------------------------------------------------------------ */
 
-// 주사위를 굴려서 랜덤 수(1~6)를 반환하는 함수
-function rollingDice() {
-  return getRandomMinMax(1, 6);
-}
+  const FPS = 8;
 
-const diceElement = document.querySelector('.dice');
+  /* Libraries ---------------------------------------------------------------- */
 
-function drawDice(diceNumber) {
-  diceElement.value = diceNumber;
-}
+  const diceSound = new DiceSound('/assets/rollingDiceSound.mp3');
 
-const FPS = 8;
+  /* travesal DOM Elements ---------------------------------------------------- */
 
-const handleRollingDice = (() => {
-  let isRolling = false;
-  let stopAnimate = null;
-  return () => {
-    if (isRolling) {
-      stopAnimate = animate(() => drawDice?.(rollingDice?.()), FPS);
-    } else {
-      stopAnimate?.();
-    }
-    isRolling = !isRolling;
+  const diceElement = document.querySelector('.dice');
+  const [rollingDiceButton, recordButton, resetButton] = Array.from(
+    document.querySelectorAll('.buttonGroup button')
+  );
+
+  /* functions ---------------------------------------------------------------- */
+
+  function rollingDice() {
+    return getRandomMinMax(1, 6);
+  }
+
+  function drawDice(diceNumber) {
+    diceElement.value = diceNumber;
+  }
+
+  /* event handlers ----------------------------------------------------------- */
+
+  const handleRollingDice = (() => {
+    let isRolling = false;
+    let stopAnimate = null;
+
+    return () => {
+      if (!isRolling) {
+        stopAnimate = animate(() => drawDice(rollingDice()), FPS);
+        diceSound.play();
+      } else {
+        stopAnimate();
+        diceSound.stop();
+      }
+      isRolling = !isRolling;
+    };
+  })();
+
+  const handleRecord = () => {
+    console.log('record');
   };
+  const handleReset = () => {
+    console.log('reset');
+  };
+
+  /* bind events -------------------------------------------------------------- */
+
+  bindEvent(rollingDiceButton, 'click', handleRollingDice);
+  bindEvent(recordButton, 'click', handleRecord);
+  bindEvent(resetButton, 'click', handleReset);
 })();

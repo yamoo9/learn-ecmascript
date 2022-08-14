@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="/style.css" />
     <link rel="icon" href="/assets/dice.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="./utils/animate.js"></script>
+    <script src="/lib/DiceSound.js"></script>
     <script src="./utils/expect.js"></script>
+    <script src="./utils/animate.js"></script>
+    <script src="./utils/bindEvent.js"></script>
     <script src="./utils/getRandom.js"></script>
     <script src="./utils/testRepeat.js"></script>
     <script src="./utils/getRandom.test.js"></script>
@@ -25,7 +27,7 @@
       </h1>
       <output class="counter dice">?</output>
       <div class="buttonGroup">
-        <button type="button" onclick="handleRollingDice()">
+        <button type="button">
           주사위 굴리기
         </button>
         <button type="button" disabled>기록</button>

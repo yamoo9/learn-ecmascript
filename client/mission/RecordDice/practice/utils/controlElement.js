@@ -1,6 +1,4 @@
-// DOM Element enable|disable
-
-function enableElement(element) {
+export function enableElement(element) {
   // 1. validation
   if (element?.nodeType !== document.ELEMENT_NODE) {
     throw new TypeError(
@@ -12,7 +10,7 @@ function enableElement(element) {
   element.disabled = false;
 }
 
-function disableElement(element) {
+export function disableElement(element) {
   // 1. validation
   if (element?.nodeType !== document.ELEMENT_NODE) {
     throw new TypeError(
@@ -24,7 +22,7 @@ function disableElement(element) {
   element.disabled = true;
 }
 
-function isEnableElement(element) {
+export function isEnableElement(element) {
   // 1. validation
   if (element?.nodeType !== document.ELEMENT_NODE) {
     throw new TypeError(
@@ -36,7 +34,7 @@ function isEnableElement(element) {
   return element.disabled === false;
 }
 
-function visibleElement(element) {
+export function visibleElement(element) {
   // 1. validation
   if (element?.nodeType !== document.ELEMENT_NODE) {
     throw new TypeError(
@@ -48,7 +46,7 @@ function visibleElement(element) {
   element.hidden = false;
 }
 
-function invisibleElement(element) {
+export function invisibleElement(element) {
   // 1. validation
   if (element?.nodeType !== document.ELEMENT_NODE) {
     throw new TypeError(
@@ -60,7 +58,7 @@ function invisibleElement(element) {
   element.hidden = true;
 }
 
-function isVisibleElement(element) {
+export function isVisibleElement(element) {
   // 1. validation
   if (element?.nodeType !== document.ELEMENT_NODE) {
     throw new TypeError(
@@ -72,7 +70,7 @@ function isVisibleElement(element) {
   return element.hidden === false;
 }
 
-function toggleElement(element, type) {
+export function toggleElement(element, type) {
   // type에 따라 활성/비활성 또는 표시/감춤 처리하는 유틸리티 함수
   switch (type) {
     default:
@@ -87,5 +85,92 @@ function toggleElement(element, type) {
       isEnableElement(element)
         ? disableElement(element)
         : enableElement(element);
+  }
+}
+
+export function isElement(node) {
+  return node?.nodeType === document.ELEMENT_NODE;
+}
+
+export function hasParent(node) {
+  return null;
+}
+
+export function insertBefore(insertElement, targetElement) {
+  // 1. parameter validation
+  if (!isElement(insertElement) || !isElement(targetElement)) {
+    throw new TypeError('....');
+  }
+  if (!targetElement.parentNode) {
+    throw new Error('....');
+  }
+  // 2. implement logic
+  targetElement.insertAdjacentElement('beforebegin', insertElement);
+  // 3. return value?
+}
+
+export function insertAfter(insertElement, targetElement) {
+  if (!isElement(insertElement) || !isElement(targetElement)) {
+    throw new TypeError('....');
+  }
+  if (!targetElement.parentNode) {
+    throw new Error('....');
+  }
+
+  targetElement.insertAdjacentElement('afterend', insertElement);
+}
+export function insertFirst(insertElement, targetElement) {
+  if (!isElement(insertElement) || !isElement(targetElement)) {
+    throw new TypeError('....');
+  }
+  if (!targetElement.parentNode) {
+    throw new Error('....');
+  }
+
+  targetElement.insertAdjacentElement('afterbegin', insertElement);
+}
+export function insertLast(insertElement, targetElement) {
+  if (!isElement(insertElement) || !isElement(targetElement)) {
+    throw new TypeError('....');
+  }
+  if (!targetElement.parentNode) {
+    throw new Error('....');
+  }
+
+  targetElement.insertAdjacentElement('beforeend', insertElement);
+}
+
+export function each(data, callback) {
+  if (data && !Array.isArray(data) && typeof data === 'object') {
+    for (const [key, value] of Object.entries(data)) {
+      callback?.(key, value);
+    }
+  }
+  Array.from(data).forEach(callback);
+}
+
+function getAttr(node, attrName) {
+  return node.getAttribute(attrName);
+}
+
+function setAttr(node, attrName, attrValue) {
+  node.setAttribute(attrName, attrValue);
+}
+
+export function attr(node, attrNameOrAttributes, attrValue) {
+  if (
+    attrNameOrAttributes &&
+    typeof attrNameOrAttributes === 'object' &&
+    !Array.isArray(attrNameOrAttributes)
+  ) {
+    // attrNameOrAttributes 순환
+    each(attrNameOrAttributes, (key, value) => {
+      setAttr(node, key, value);
+    });
+  }
+  if (attrValue) {
+    setAttr(node, attrNameOrAttributes, attrValue);
+  } else {
+    return getAttr(node, attrNameOrAttributes);
   }
 }

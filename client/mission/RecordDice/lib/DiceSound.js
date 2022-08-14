@@ -12,3 +12,5 @@ class DiceSound {
     this.#audio.currentTime = 0;
   }
 }
+
+export const diceSound = new DiceSound('/assets/rollingDiceSound.mp3');

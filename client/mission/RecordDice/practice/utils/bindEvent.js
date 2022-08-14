@@ -2,7 +2,7 @@
 // 구현 사양(implement specification)
 // const unbindEvent = bindEvent(elementNode, eventType, eventHandler);
 
-const bindEvent = (elementNode, eventType, eventHandler) => {
+export const bindEvent = (elementNode, eventType, eventHandler) => {
   // 1. parameters validation
   if (elementNode?.nodeType !== document.ELEMENT_NODE) {
     throw new TypeError(

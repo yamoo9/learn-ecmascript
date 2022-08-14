@@ -1,7 +1,7 @@
 // [인터페이스] getRandom(n:number): number
 // [테스트] getRandom(20) 0~20 사이 난수 반환
 // [테스트] getRandom() 타입 오류 발생!!!!!!!
-function getRandom(n) {
+export function getRandom(n) {
   // validation
   if (!n || typeof n !== 'number')
     throw new TypeError('매개변수 n은 숫자 값이어야 합니다.');
@@ -17,7 +17,7 @@ function getRandom(n) {
 // [테스트] getRandomMinMax(40) 40~100 사이 난수 반환
 // [테스트] getRandomMinMax(32, 54) 32~54 사이 난수 반환
 // [테스트] getRandomMinMax(80, 32) 오류 발생!!!!!!!
-function getRandomMinMax(min = 0, max = 100) {
+export function getRandomMinMax(min = 0, max = 100) {
   // 유효성 검사
   if (typeof min !== 'number' || typeof max !== 'number')
     throw new TypeError('min 또는 max 값은 숫자 타입이어야 합니다.');
@@ -29,3 +29,5 @@ function getRandomMinMax(min = 0, max = 100) {
   // 난수(10 - 4) + 4
   return getRandom(max - min) + min;
 }
+
+// export default { getRandom, getRandomMinMax };

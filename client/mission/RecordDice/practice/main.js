@@ -1,38 +1,47 @@
-/* global memo, visibleElement, invisibleElement, enableElement, disableElement, bindEvent, getRandomMinMax, animate, DiceSound */
+import { diceSound } from '../lib/DiceSound.js';
+import {
+  getRandomMinMax,
+  animate,
+  memo,
+  bindEvent,
+  disableElement,
+  enableElement,
+  invisibleElement,
+  visibleElement,
+} from './utils/index.js';
 
-(() => {
-  /* Configuration ------------------------------------------------------------ */
+/* Configuration ------------------------------------------------------------ */
 
-  const FPS = 8;
+const FPS = 8;
 
-  /* travesal DOM Elements ---------------------------------------------------- */
+/* travesal DOM Elements ---------------------------------------------------- */
 
-  memo('dice', () => document.querySelector('.dice'));
-  memo('recordListWrapper', () => document.querySelector('.recordListWrapper'));
-  const [rollingDiceButton, recordButton, resetButton] = memo(
-    'controlButtons',
-    () => Array.from(document.querySelectorAll('.buttonGroup button'))
-  );
+memo('dice', () => document.querySelector('.dice'));
+memo('recordListWrapper', () => document.querySelector('.recordListWrapper'));
+const [rollingDiceButton, recordButton, resetButton] = memo(
+  'controlButtons',
+  () => Array.from(document.querySelectorAll('.buttonGroup button'))
+);
 
-  /* functions ---------------------------------------------------------------- */
+/* functions ---------------------------------------------------------------- */
 
-  function rollingDice() {
-    return getRandomMinMax(1, 6);
-  }
+function rollingDice() {
+  return getRandomMinMax(1, 6);
+}
 
-  function drawDice(diceValue = '?') {
-    memo('dice').value = diceValue;
-  }
+function drawDice(diceValue = '?') {
+  memo('dice').value = diceValue;
+}
 
-  /* render function ---------------------------------------------------------- */
+/* render function ---------------------------------------------------------- */
 
-  let count = 0;
-  let total = 0;
-  memo('@tbody', () => memo('recordListWrapper').querySelector('tbody'));
+let count = 0;
+let total = 0;
+memo('@tbody', () => memo('recordListWrapper').querySelector('tbody'));
 
-  function renderRecordListItem() {
-    let diceValue = Number(memo('dice').value);
-    const newRecordListItem = /* html */ `
+function renderRecordListItem() {
+  let diceValue = Number(memo('dice').value);
+  const newRecordListItem = /* html */ `
       <tr>
         <td>${++count}</td>
         <td>${diceValue}</td>
@@ -40,58 +49,56 @@
       </tr>
     `;
 
-    memo('@tbody').insertAdjacentHTML('beforeend', newRecordListItem);
-    memo('recordListWrapper').scrollTop =
-      memo('recordListWrapper').scrollHeight;
-  }
+  memo('@tbody').insertAdjacentHTML('beforeend', newRecordListItem);
+  memo('recordListWrapper').scrollTop = memo('recordListWrapper').scrollHeight;
+}
 
-  function cleanRecordList() {
-    memo('@tbody').innerHTML = '';
-  }
+function cleanRecordList() {
+  memo('@tbody').innerHTML = '';
+}
 
-  /* event handlers ----------------------------------------------------------- */
+/* event handlers ----------------------------------------------------------- */
 
-  memo('diceSound', () => new DiceSound('/assets/rollingDiceSound.mp3'));
+memo('diceSound', () => diceSound);
 
-  const handleRollingDice = (() => {
-    let isRolling = false;
-    let stopAnimate = null;
+const handleRollingDice = (() => {
+  let isRolling = false;
+  let stopAnimate = null;
 
-    return () => {
-      // const diceSound = new DiceSound('/assets/rollingDiceSound.mp3');
+  return () => {
+    // const diceSound = new DiceSound('/assets/rollingDiceSound.mp3');
 
-      if (!isRolling) {
-        stopAnimate = animate(() => drawDice(rollingDice()), FPS);
-        disableElement(recordButton);
-        disableElement(resetButton);
-        memo('diceSound').play();
-      } else {
-        stopAnimate();
-        enableElement(recordButton);
-        enableElement(resetButton);
-        memo('diceSound').stop();
-      }
-      isRolling = !isRolling;
-    };
-  })();
-
-  const handleRecord = () => {
-    visibleElement(memo('recordListWrapper'));
-    renderRecordListItem();
+    if (!isRolling) {
+      stopAnimate = animate(() => drawDice(rollingDice()), FPS);
+      disableElement(recordButton);
+      disableElement(resetButton);
+      memo('diceSound').play();
+    } else {
+      stopAnimate();
+      enableElement(recordButton);
+      enableElement(resetButton);
+      memo('diceSound').stop();
+    }
+    isRolling = !isRolling;
   };
-  const handleReset = () => {
-    invisibleElement(memo('recordListWrapper'));
-    cleanRecordList();
-    drawDice();
-    disableElement(recordButton);
-    disableElement(resetButton);
-    count = 0;
-    total = 0;
-  };
-
-  /* bind events -------------------------------------------------------------- */
-
-  bindEvent(rollingDiceButton, 'click', handleRollingDice);
-  bindEvent(recordButton, 'click', handleRecord);
-  bindEvent(resetButton, 'click', handleReset);
 })();
+
+const handleRecord = () => {
+  visibleElement(memo('recordListWrapper'));
+  renderRecordListItem();
+};
+const handleReset = () => {
+  invisibleElement(memo('recordListWrapper'));
+  cleanRecordList();
+  drawDice();
+  disableElement(recordButton);
+  disableElement(resetButton);
+  count = 0;
+  total = 0;
+};
+
+/* bind events -------------------------------------------------------------- */
+
+bindEvent(rollingDiceButton, 'click', handleRollingDice);
+bindEvent(recordButton, 'click', handleRecord);
+bindEvent(resetButton, 'click', handleReset);

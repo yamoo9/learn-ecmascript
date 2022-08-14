@@ -2,7 +2,7 @@
 // memo(key, () => value)
 // memo(key)
 
-const memo = (() => {
+export const memo = (() => {
   const cache = {};
 
   const _memo = (key, callback) => {

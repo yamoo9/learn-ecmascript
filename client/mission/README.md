@@ -10,4 +10,4 @@
 - [x] expect
 - [x] bindEvent
 - [x] controlElement
-- [ ] memo
+- [x] memo

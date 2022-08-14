@@ -1,19 +1,17 @@
-/* global bindEvent, getRandomMinMax, animate, DiceSound */
+/* global memo, visibleElement, invisibleElement, enableElement, disableElement, bindEvent, getRandomMinMax, animate, DiceSound */
 
 (() => {
   /* Configuration ------------------------------------------------------------ */
 
   const FPS = 8;
 
-  /* Libraries ---------------------------------------------------------------- */
-
-  const diceSound = new DiceSound('/assets/rollingDiceSound.mp3');
-
   /* travesal DOM Elements ---------------------------------------------------- */
 
-  const diceElement = document.querySelector('.dice');
-  const [rollingDiceButton, recordButton, resetButton] = Array.from(
-    document.querySelectorAll('.buttonGroup button')
+  memo('dice', () => document.querySelector('.dice'));
+  memo('recordListWrapper', () => document.querySelector('.recordListWrapper'));
+  const [rollingDiceButton, recordButton, resetButton] = memo(
+    'controlButtons',
+    () => Array.from(document.querySelectorAll('.buttonGroup button'))
   );
 
   /* functions ---------------------------------------------------------------- */
@@ -23,29 +21,40 @@
   }
 
   function drawDice(diceNumber) {
-    diceElement.value = diceNumber;
+    memo('dice').value = diceNumber;
   }
 
   /* event handlers ----------------------------------------------------------- */
+
+  memo('diceSound', () => new DiceSound('/assets/rollingDiceSound.mp3'));
 
   const handleRollingDice = (() => {
     let isRolling = false;
     let stopAnimate = null;
 
+    // memo.getCache();
+
     return () => {
+      // const diceSound = new DiceSound('/assets/rollingDiceSound.mp3');
+      memo.getCache();
       if (!isRolling) {
         stopAnimate = animate(() => drawDice(rollingDice()), FPS);
-        diceSound.play();
+        disableElement(recordButton);
+        disableElement(resetButton);
+        memo('diceSound').play();
       } else {
         stopAnimate();
-        diceSound.stop();
+        enableElement(recordButton);
+        enableElement(resetButton);
+        memo('diceSound').stop();
+        memo('diceSound', () => null);
       }
       isRolling = !isRolling;
     };
   })();
 
   const handleRecord = () => {
-    console.log('record');
+    visibleElement(memo('recordListWrapper'));
   };
   const handleReset = () => {
     console.log('reset');

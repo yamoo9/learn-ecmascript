@@ -20,8 +20,33 @@
     return getRandomMinMax(1, 6);
   }
 
-  function drawDice(diceNumber) {
-    memo('dice').value = diceNumber;
+  function drawDice(diceValue = '?') {
+    memo('dice').value = diceValue;
+  }
+
+  /* render function ---------------------------------------------------------- */
+
+  let count = 0;
+  let total = 0;
+  memo('@tbody', () => memo('recordListWrapper').querySelector('tbody'));
+
+  function renderRecordListItem() {
+    let diceValue = Number(memo('dice').value);
+    const newRecordListItem = /* html */ `
+      <tr>
+        <td>${++count}</td>
+        <td>${diceValue}</td>
+        <td>${(total += diceValue)}</td>
+      </tr>
+    `;
+
+    memo('@tbody').insertAdjacentHTML('beforeend', newRecordListItem);
+    memo('recordListWrapper').scrollTop =
+      memo('recordListWrapper').scrollHeight;
+  }
+
+  function cleanRecordList() {
+    memo('@tbody').innerHTML = '';
   }
 
   /* event handlers ----------------------------------------------------------- */
@@ -32,11 +57,9 @@
     let isRolling = false;
     let stopAnimate = null;
 
-    // memo.getCache();
-
     return () => {
       // const diceSound = new DiceSound('/assets/rollingDiceSound.mp3');
-      memo.getCache();
+
       if (!isRolling) {
         stopAnimate = animate(() => drawDice(rollingDice()), FPS);
         disableElement(recordButton);
@@ -47,7 +70,6 @@
         enableElement(recordButton);
         enableElement(resetButton);
         memo('diceSound').stop();
-        memo('diceSound', () => null);
       }
       isRolling = !isRolling;
     };
@@ -55,9 +77,16 @@
 
   const handleRecord = () => {
     visibleElement(memo('recordListWrapper'));
+    renderRecordListItem();
   };
   const handleReset = () => {
-    console.log('reset');
+    invisibleElement(memo('recordListWrapper'));
+    cleanRecordList();
+    drawDice();
+    disableElement(recordButton);
+    disableElement(resetButton);
+    count = 0;
+    total = 0;
   };
 
   /* bind events -------------------------------------------------------------- */

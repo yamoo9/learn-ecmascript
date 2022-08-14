@@ -10,9 +10,6 @@ const memo = (() => {
       console.log(`cached: ${key}`);
       cache[key] = callback?.();
     } else if (cache[key] && typeof callback === 'function') {
-      // confirm(`cache의 ${key}를 덮어쓰겠습니까?`) &&
-      //   (cache[key] = callback?.());
-
       if (confirm(`cache의 ${key}를 덮어쓰겠습니까?`)) {
         cache[key] = callback?.();
       }

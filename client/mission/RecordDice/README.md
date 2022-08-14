@@ -22,7 +22,7 @@
 - [x] "기록", "초기화" 버튼 활성화
 - [x] "기록" 버튼 클릭 시
   - [x] ".recordListWrapper" 요소 화면에 표시
-  - [ ] ".recordList tbody" 요소 내부에 행 정보(회차,기록,합계) 저장
+  - [x] ".recordList tbody" 요소 내부에 행 정보(회차,기록,합계) 저장
 
 ### 초기화
 
